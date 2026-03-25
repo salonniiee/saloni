@@ -65,7 +65,7 @@ export default function SupplierPage() {
 
   const generateProductId = (comps: Component[], ts: number) => {
     const data = JSON.stringify({ components: comps, timestamp: ts });
-    return '0x' + ethers.id(data).slice(0, 66);
+    return ethers.id(data).slice(0, 66);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
