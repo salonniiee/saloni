@@ -11,7 +11,7 @@ export async function GET(
 ) {
   const { id } = await params;
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
-  const rpcUrl = process.env.RPC_URL;
+  const rpcUrl = process.env.RPC_URL || process.env.NEXT_PUBLIC_RPC_URL;
 
   if (!contractAddress || !rpcUrl) {
     return NextResponse.json(
@@ -46,7 +46,7 @@ export async function GET(
 
     return NextResponse.json({ success: true, product });
   } catch (error) {
-    console.error('Error fetching product:', error);
+    console.error('Error fetching product:', error, 'id:', id, 'contract:', contractAddress, 'rpc:', rpcUrl);
     return NextResponse.json(
       { success: false, error: 'Product not found' },
       { status: 404 }
