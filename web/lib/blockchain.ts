@@ -15,6 +15,20 @@ export interface BlockchainConfig {
 
 let config: BlockchainConfig | null = null;
 
+function initializeConfig() {
+  if (typeof window !== 'undefined') return;
+  
+  const rpcUrl = process.env.RPC_URL;
+  const privateKey = process.env.PRIVATE_KEY;
+  const contractAddress = process.env.CONTRACT_ADDRESS;
+
+  if (rpcUrl && privateKey && contractAddress) {
+    config = { rpcUrl, privateKey, contractAddress };
+  }
+}
+
+initializeConfig();
+
 export function setBlockchainConfig(newConfig: BlockchainConfig) {
   config = newConfig;
 }
